@@ -1,4 +1,6 @@
 {
+  description = "A FastAPI microservice for running inteference";
+
   inputs = {
     mach-nix.url = "github:DavHau/mach-nix";
   };
@@ -19,6 +21,11 @@
           rich
           uvicorn
           python-multipart
+          dask
+          pytest
+          joblib
+          numpy
+          pandas
         ];
         ignoreCollisions = true;
       };
