@@ -26,6 +26,8 @@
           joblib
           numpy
           pandas
+          toml
+          scikit-learn
         ];
         ignoreCollisions = true;
       };

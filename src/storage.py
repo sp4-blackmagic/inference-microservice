@@ -3,11 +3,8 @@ import httpx
 import tempfile  # For creating temporary files
 import os
 
-STORAGE_ADDR = 'http://127.0.0.1:8000'
-API_ENDPOINT = "/download_item/"  # {uid}
 
-
-async def fetch_file(file_uid: str) -> bytes | None:
+async def fetch_file(file_uid: str, api_url: str) -> bytes | None:
     """
     Fetch the file by it's `uid` from storage API.
     Return the raw fetched data.
@@ -16,9 +13,9 @@ async def fetch_file(file_uid: str) -> bytes | None:
     data = None
     # read the data
     async with httpx.AsyncClient() as client:
-        data_download_url = f'{STORAGE_ADDR}{API_ENDPOINT}{file_uid}'
-        print(f"Attempting to download data from: {data_download_url}")
-        r = await client.get(data_download_url)
+        # data_download_url = f'{STORAGE_ADDR}{API_ENDPOINT}{file_uid}'
+        print(f"Attempting to download data from: {api_url}")
+        r = await client.get(api_url)
 
         if r.status_code != httpx.codes.OK:
             print(f"Failed to download data file. Status code: {
