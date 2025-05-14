@@ -6,32 +6,45 @@ import os
 
 async def fetch_file(file_uid: str, api_url: str) -> bytes | None:
     """
-    Fetch the file by it's `uid` from storage API.
+    Fetch the file by its `uid` from storage API.
     Return the raw fetched data.
     """
-    # temp_data_file_path = None
     data = None
-    # read the data
-    async with httpx.AsyncClient() as client:
-        # data_download_url = f'{STORAGE_ADDR}{API_ENDPOINT}{file_uid}'
-        print(f"Attempting to download data from: {api_url}")
-        r = await client.get(api_url)
+    api_with_uid = f"{api_url}{file_uid}"
+    try:
+        async with httpx.AsyncClient() as client:
+            print(f"Attempting to download data from: {api_with_uid}")
+            r = await client.get(api_with_uid)
 
-        if r.status_code != httpx.codes.OK:
-            print(f"Failed to download data file. Status code: {
-                r.status_code}")
-            raise HTTPException(
-                status_code=r.status_code,
-                detail=f"Failed to download data file with uid {file_uid}"
-            )
+            r.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
 
-        print("Data download successful.")
-        data = r.content  # binary data
+            print("Data download successful.")
+            # print(r.content) # Avoid printing potentially large binary data
+            data = r.content  # binary data
+            return data
 
-    return data
-    # temp_data_file_path = save_temp_file(data_binary_content)
-    #
-    # return temp_data_file_path
+    except httpx.HTTPStatusError as e:
+        print(f"HTTP error occurred: {e}")
+        # Re-raise as HTTPException if needed in a FastAPI context
+        # Or just return None or raise a different error depending on desired behavior
+        raise HTTPException(
+            status_code=e.response.status_code,
+            detail=f"Failed to download data file with uid {
+                file_uid}: {e.response.reason_phrase}"
+        )
+    except httpx.RequestError as e:
+        print(f"An error occurred while requesting {e.request.url!r}: {e}")
+        raise HTTPException(
+            status_code=500,  # Or an appropriate client error status if applicable
+            detail=f"An error occurred while fetching file with uid {file_uid}"
+        )
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"An unexpected error occurred while processing file {
+                file_uid}"
+        )
 
 
 def save_temp_file(data) -> str | None:
@@ -60,3 +73,27 @@ def remove_temp_file(file_path: str) -> None:
             print(f"Temporary data file {file_path} removed.")
         except Exception as e:
             print(f"Error removing temporary file {file_path}: {e}")
+
+
+def list_files_with_extension(directory_path, extension):
+    """
+    Lists all files in a given directory with a specific extension.
+    """
+    if not extension.startswith('.'):
+        extension = '.' + extension
+
+    file_list = []
+    try:
+        if not os.path.isdir(directory_path):
+            print(f"Error: Directory not found at '{directory_path}'")
+            return []
+        for root, _, files in os.walk(directory_path):
+            for file in files:
+                if file.lower().endswith(extension.lower()):
+                    base_name, file_extension = os.path.splitext(file)
+                    file_list.append(base_name.split("_")[0])
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
+
+    return file_list

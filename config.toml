@@ -3,4 +3,5 @@ url="http://127.0.0.1:8000/download_item/"
 
 [local]
 models_dir = "./local_models"
+model_extension="joblib"
 

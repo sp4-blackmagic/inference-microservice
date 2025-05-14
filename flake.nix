@@ -3,6 +3,7 @@
 
   inputs = {
     mach-nix.url = "github:DavHau/mach-nix";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
   outputs =
@@ -16,6 +17,7 @@
       inherit (mach-nix.lib.${system}) mkPython;
       python = pkgs.python3.buildEnv.override {
         extraLibs = with pkgs.python3Packages; [
+          fastapi-cli
           fastapi
           httpx
           rich
