@@ -1,0 +1,14 @@
+fastapi
+fastapi-cli
+httpx
+rich
+uvicorn
+python-multipart
+dask
+pytest
+joblib
+numpy
+pandas
+toml
+scikit-learn
+imblearn
