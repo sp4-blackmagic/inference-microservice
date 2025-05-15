@@ -23,4 +23,4 @@ class ModelResult(BaseModel):
 class EvaluationResult(BaseModel):
     file_uid: str
     requested_models: List[str]
-    results: Dict[str, ModelResult]
+    results: list[Dict[str, ModelResult]]

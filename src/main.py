@@ -48,12 +48,10 @@ async def evaluate(info: InferenceInfo):
 
         # Convert to numpy array
         # parse the data to be in format digestable for the model
-        parsed_data: np.ndarray = parse_data_for_model(
+        parsed_data: list[np.ndarray] = parse_data_for_model(
             data_io
         )
 
-        # TODO: check the prediction output and if it needs formatting
-        #
         # run the inference on parsed data with provided models
         results = run_inference(
             info.models,

@@ -7,20 +7,27 @@ import io
 import os
 
 
-def parse_data_for_model(data: str) -> np.ndarray:
+def parse_data_for_model(data: str) -> list[np.ndarray]:
     """
     Pass the path to a CSV file to parse into a numpy array
     """
+    data_for_inference = []
     try:
         print("trying to load data...")
-        data_for_inference = pd.read_csv(data)
-        print(f"Data loaded for inference. Shape: {data_for_inference.shape}")
+        df = pd.read_csv(data)
+        print(f"Data loaded for inference. Shape: {df.shape}")
 
-        # TODO: change it after seeing how the data is being saved
-        data_for_inference = data_for_inference.iloc[[0], 11:]
-        # Convert to numpy array
-        model_input: np.ndarray = data_for_inference.values
-        return model_input
+        num_rows = len(df)
+
+        if num_rows > 30:
+            num_rows = 30  # cap at 30 for now
+
+        for i in range(1, num_rows):
+            row = df.iloc[[i], 11:]
+            model_input: np.ndarray = row.values
+
+            data_for_inference.append(model_input)
+        return data_for_inference
 
     except Exception as e:
         print(f"Error parsing data {data}: {e}")
