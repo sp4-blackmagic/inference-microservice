@@ -34,7 +34,7 @@
       #     # pandas
       #     # toml
       #     # scikit-learn
-      #     # imblearn
+      #     # imblearn # THIS LIBRARY BREAKS 
       #   ];
       #   ignoreCollisions = true;
       # };
