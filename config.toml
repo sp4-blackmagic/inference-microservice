@@ -3,5 +3,6 @@ url="http://127.0.0.1:8000/download_item/"
 
 [local]
 models_dir = "./local_models"
+label_encoder_dir="./label_encoder/"
 model_extension="joblib"
 

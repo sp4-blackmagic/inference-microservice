@@ -65,8 +65,7 @@ async def extract_csv_from_tar_gz_bytes(tar_gz_bytes: bytes) -> bytes | None:
                                 print(f"Error decoding CSV content: {e}")
                                 return None
                         else:
-                            print(f"Could not extract content for {
-                                  member.name}")
+                            print(f"Couldn't extract {member.name}")
 
             # If the loop finishes without finding a CSV file
             print("No .csv file found in the archive.")

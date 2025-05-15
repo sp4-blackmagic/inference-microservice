@@ -1,11 +1,11 @@
 from .config_loader import load_config
-from .run_inference import run_inferenece
+from .run_inference import run_inference
 from .parse import parse_data_for_model, extract_csv_from_tar_gz_bytes
 from fastapi import FastAPI, HTTPException
 import numpy as np
 # local
 from .local_types import InferenceInfo
-from .storage import fetch_file, list_files_with_extension
+from .storage import fetch_file, list_dirs
 import io
 
 
@@ -21,9 +21,8 @@ async def test():
 
 @app.get("/model_names")
 def get_model_names():
-    model_names = list_files_with_extension(
-        app_config["local"]["models_dir"],
-        app_config["local"]["model_extension"]
+    model_names = list_dirs(
+        app_config["local"]["models_dir"]
     )
 
     return model_names
@@ -56,8 +55,11 @@ async def evaluate(info: InferenceInfo):
         # TODO: check the prediction output and if it needs formatting
         #
         # run the inference on parsed data with provided models
-        results = run_inferenece(
-            info.models, parsed_data, app_config["local"]["models_dir"]
+        results = run_inference(
+            info.models,
+            parsed_data,
+            app_config["local"]["models_dir"],
+            app_config["local"]["label_encoder_dir"]
         )
 
         return results
@@ -65,4 +67,4 @@ async def evaluate(info: InferenceInfo):
     except Exception as e:
         print(e)
         raise HTTPException(
-            status_code=500, detail="Error Handled, Something went wrong")
+            status_code=500, detail=f"Something went wrong: {e}")

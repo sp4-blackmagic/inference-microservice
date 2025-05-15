@@ -16,37 +16,34 @@ async def fetch_file(file_uid: str, api_url: str) -> bytes | None:
             print(f"Attempting to download data from: {api_with_uid}")
             r = await client.get(api_with_uid)
 
-            r.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
+            r.raise_for_status()
 
             print("Data download successful.")
-            # print(r.content) # Avoid printing potentially large binary data
-            data = r.content  # binary data
+            data = r.content
+
             return data
 
     except httpx.HTTPStatusError as e:
         print(f"HTTP error occurred: {e}")
-        # Re-raise as HTTPException if needed in a FastAPI context
-        # Or just return None or raise a different error depending on desired behavior
         raise HTTPException(
             status_code=e.response.status_code,
-            detail=f"Failed to download data file with uid {
-                file_uid}: {e.response.reason_phrase}"
+            detail=f"Failed to download {file_uid}: {e.response.reason_phrase}"
         )
     except httpx.RequestError as e:
         print(f"An error occurred while requesting {e.request.url!r}: {e}")
         raise HTTPException(
-            status_code=500,  # Or an appropriate client error status if applicable
+            status_code=500,
             detail=f"An error occurred while fetching file with uid {file_uid}"
         )
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         raise HTTPException(
             status_code=500,
-            detail=f"An unexpected error occurred while processing file {
-                file_uid}"
+            detail=f"An unexpected error occurred {file_uid}"
         )
 
 
+# TODO: dead function - remove
 def save_temp_file(data) -> str | None:
     """
     Save the data temporarily to a given path with `.csv` format.
@@ -62,6 +59,7 @@ def save_temp_file(data) -> str | None:
     return temp_data_file_path
 
 
+# TODO: dead function - remove
 def remove_temp_file(file_path: str) -> None:
     """
     Pass the path to the file to remove from file system.
@@ -73,6 +71,22 @@ def remove_temp_file(file_path: str) -> None:
             print(f"Temporary data file {file_path} removed.")
         except Exception as e:
             print(f"Error removing temporary file {file_path}: {e}")
+
+
+def list_dirs(directory_path):
+    """
+    Lists all subdirectories in a given directory.
+    """
+
+    try:
+        if not os.path.isdir(directory_path):
+            print(f"Error: Directory not found at '{directory_path}'")
+            return []
+
+        return next(os.walk(directory_path))[1]
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
 
 
 def list_files_with_extension(directory_path, extension):
@@ -89,6 +103,7 @@ def list_files_with_extension(directory_path, extension):
             return []
         for root, _, files in os.walk(directory_path):
             for file in files:
+                file_list.append(file.lower())
                 if file.lower().endswith(extension.lower()):
                     base_name, file_extension = os.path.splitext(file)
                     file_list.append(base_name.split("_")[0])

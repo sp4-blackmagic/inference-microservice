@@ -9,7 +9,7 @@ class InferenceInfo(BaseModel):
 
 class PredictionResult(BaseModel):
     status: Literal["success", "error"]
-    prediction: Optional[List[float]] = None
+    prediction_encoded: Optional[List[float]] = None
     prediction_proba: Optional[List[float]] = None
     prediction_readable: Optional[str] = None
     message: Optional[str] = None
