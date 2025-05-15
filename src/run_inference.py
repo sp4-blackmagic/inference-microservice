@@ -2,6 +2,9 @@ import os
 import joblib
 from .local_types import EvaluationResult
 import numpy as np
+import logging
+
+logger = logging.getLogger(__name__)
 
 prediction_types = ["firmness", "ripeness"]
 
@@ -11,17 +14,17 @@ def load_asset(asset_path: str):
     Loads a joblib asset (pipeline or encoder) from a specified file path.
     Includes error handling.
     """
-    print(f"Attempting to load asset from '{asset_path}'...")
+    logger.info(f"Attempting to load asset from '{asset_path}'...")
     try:
         loaded_asset = joblib.load(asset_path)
-        print(f"Asset loaded successfully from '{asset_path}'.")
+        logger.info(f"Asset loaded successfully from '{asset_path}'.")
         return loaded_asset
     except FileNotFoundError:
-        print(f"Error: Asset file not found at '{asset_path}'.")
+        logger.error(f"Error: Asset file not found at '{asset_path}'.")
         # Re-raise the exception so the caller knows it failed
         raise
     except Exception as e:
-        print(f"An error occurred while loading asset '{asset_path}': {e}")
+        logger.error(f"An error occurred loading '{asset_path}': {e}")
         # Re-raise the exception
         raise
 
@@ -44,7 +47,8 @@ def run_inference(
 
     # Verify if model exists
     if not os.path.exists(models_dir):
-        print(f"Error: Local models directory not found at {models_dir}.")
+        logger.info(
+            f"Error: Local models directory not found at {models_dir}.")
         results["status"] = "error"
         results["message"] = f"Models directory not found at {models_dir}"
         return results
@@ -58,7 +62,7 @@ def run_inference(
         for model_name in models:
             # Initialize results for this model
             results["results"][idx][model_name] = {}
-            print(results)
+            logger.info(results)
 
             for pred_type in prediction_types:
                 pred_type_label = pred_type
@@ -69,11 +73,11 @@ def run_inference(
                 encoder_file_path = os.path.join(
                     label_encoder_dir, f"label_encoder_{pred_type}.joblib")
 
-                print("---PATHS:")
-                print("pipeline", pipeline_file_path)
-                print("encoder", encoder_file_path)
+                logger.info("---PATHS:")
+                logger.info("pipeline", pipeline_file_path)
+                logger.info("encoder", encoder_file_path)
 
-                print(
+                logger.info(
                     f"--- Running inference for {model_name} ({pred_type_label}) ---")
 
                 loaded_pipeline = None
@@ -83,7 +87,7 @@ def run_inference(
                 try:
                     loaded_pipeline = load_asset(pipeline_file_path)
                 except FileNotFoundError:
-                    print(f"Pipeline file not found. Skipping...")
+                    logger.error(f"Pipeline file not found. Skipping...")
                     results["results"][idx][model_name][pred_type_label] = {
                         "status": "error",
                         "message": f"Pipeline file not found at {pipeline_file_path}"
@@ -94,14 +98,15 @@ def run_inference(
                 try:
                     loaded_label_encoder = load_asset(encoder_file_path)
                 except FileNotFoundError:
-                    print(f"  Label Encoder file not found. Skipping... ")
+                    logger.error(
+                        f"  Label Encoder file not found. Skipping... ")
                     results["results"][idx][model_name][pred_type_label] = {
                         "status": "error",
                         "message": f"Label Encoder file not found at {encoder_file_path}"
                     }
                     continue  # Skip to the next prediction type
                 except Exception as e:
-                    print(f"  Error loading Label Encoder : {e}")
+                    logger.error(f"  Error loading Label Encoder : {e}")
                     results["results"][idx][model_name][pred_type_label] = {
                         "status": "error",
                         "message": f"Failed to load Label Encoder: {e}"
@@ -120,7 +125,8 @@ def run_inference(
                             predictions_proba, axis=1)
 
                     else:
-                        print(f"Error: {model_name} no prediction method.")
+                        logger.info(
+                            f"Error: {model_name} no prediction method.")
                         results["results"][idx][model_name][pred_type_label] = {
                             "status": "error",
                             "message": "Loaded pipeline object is not a valid."
@@ -132,7 +138,7 @@ def run_inference(
                         predictions_readable = loaded_label_encoder.inverse_transform(
                             predictions_encoded)
                     else:
-                        print(
+                        logger.info(
                             f"Error: Loaded Label Encoder no 'inverse_transform' method.")
                         results["results"][idx][model_name][pred_type_label] = {
                             "status": "error",
@@ -148,10 +154,10 @@ def run_inference(
                         "prediction_readable": predictions_readable.tolist() if predictions_readable.size > 1 else predictions_readable[0],
                     }
 
-                    print(f"Success {model_name}({pred_type_label}).")
+                    logger.info(f"Success {model_name}({pred_type_label}).")
 
                 except Exception as e:
-                    print(f"  An unexpected error occurred  {e}")
+                    logger.error(f"  An unexpected error occurred  {e}")
                     results["results"][idx][model_name][pred_type_label] = {
                         "status": "error", "message": f"Inference failed: {e}"
                     }

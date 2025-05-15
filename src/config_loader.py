@@ -1,6 +1,9 @@
 
 import toml
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def load_config(config_path="config.toml"):
@@ -14,7 +17,7 @@ def load_config(config_path="config.toml"):
             config = toml.load(f)  # Use tomllib.load(f) for 3.11+ read-only
         return config
     except FileNotFoundError:
-        print(f"Error: Configuration file not found at {full_path}")
+        logger.error(f"Error: Configuration file not found at {full_path}")
         # Handle this error appropriately - maybe raise an exception or exit
         return None  # Or raise an exception
 

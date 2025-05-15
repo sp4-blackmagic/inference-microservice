@@ -3,11 +3,18 @@ from .run_inference import run_inference
 from .parse import parse_data_for_model, extract_csv_from_tar_gz_bytes
 from fastapi import FastAPI, HTTPException
 import numpy as np
+import logging
 # local
 from .local_types import InferenceInfo
 from .storage import fetch_file, list_dirs
 import io
 
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+
+logger.info("Application starting...")
 
 app = FastAPI()
 
@@ -31,8 +38,8 @@ def get_model_names():
 @app.post("/evaluate/")
 async def evaluate(info: InferenceInfo):
 
-    print("app_config", app_config)
-    print("info", info)
+    logger.info("app_config", app_config)
+    logger.info("info", info)
 
     csv_data = None
 
@@ -63,6 +70,6 @@ async def evaluate(info: InferenceInfo):
         return results
 
     except Exception as e:
-        print(e)
+        logger.info(e)
         raise HTTPException(
             status_code=500, detail=f"Something went wrong: {e}")
