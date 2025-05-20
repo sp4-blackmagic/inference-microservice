@@ -3,6 +3,7 @@ import joblib
 from .local_types import EvaluationResult
 import numpy as np
 import logging
+from .storage import get_model_path, get_model_info
 
 logger = logging.getLogger(__name__)
 
@@ -33,28 +34,28 @@ def run_inference(
     models: list[str],
     input_data: list[np.ndarray],
     models_dir: str,
-    label_encoder_dir: str
+    balance_type: str = "balanced"  # Default to balanced models
 ):
     """
-    Run inference with provided models (pipeline + encoder) on given data.
-    Expects raw input data (Pandas DataFrame is recommended).
+    Run inference with provided models on given data using the model registry.
     """
-
+    logger.info(f"Running inference with models: {models}")
     results: EvaluationResult = {
         "requested_models": models,
         "results": {},
     }
 
-    # Verify if model exists
+    # Verify if model directory exists
     if not os.path.exists(models_dir):
-        logger.info(
-            f"Error: Local models directory not found at {models_dir}.")
+        logger.error(f"Models directory not found at {models_dir}")
         results["status"] = "error"
         results["message"] = f"Models directory not found at {models_dir}"
         return results
 
+    print("input_data", input_data)
     for idx, input_data_row in enumerate(input_data):
         X_inference = input_data_row
+        print("X_inference", X_inference)
 
         if idx not in results["results"]:
             results["results"][idx] = {}
@@ -62,17 +63,25 @@ def run_inference(
         for model_name in models:
             # Initialize results for this model
             results["results"][idx][model_name] = {}
-            logger.info(results)
-
+            
             for pred_type in prediction_types:
                 pred_type_label = pred_type
-
-                # --- Construct paths for pipeline and label encoder ---
-                pipeline_file_path = os.path.join(
-                    models_dir, model_name,  f"pipeline_{model_name}_{pred_type}.joblib")
-                encoder_file_path = os.path.join(
-                    label_encoder_dir, f"label_encoder_{pred_type}.joblib")
-
+                
+                # Get model information from registry
+                model_info = get_model_info(model_name, pred_type, balance_type)
+                
+                if not model_info:
+                    logger.error(f"Model {model_name}/{pred_type}/{balance_type} not found in registry")
+                    results["results"][idx][model_name][pred_type_label] = {
+                        "status": "error",
+                        "message": f"Model {model_name}/{pred_type}/{balance_type} not found in registry"
+                    }
+                    continue
+                
+                # Use paths from the model registry
+                pipeline_file_path = model_info['joblib_path']
+                encoder_file_path = model_info['encoder_path']
+                
                 logger.info("---PATHS:")
                 logger.info("pipeline", pipeline_file_path)
                 logger.info("encoder", encoder_file_path)

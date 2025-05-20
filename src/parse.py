@@ -25,6 +25,7 @@ def parse_data_for_model(data: str) -> list[np.ndarray]:
         if num_rows > 30:
             num_rows = 30  # cap at 30 for now
 
+        # TODO: get back here once the preprocessor is done and data format is known
         for i in range(1, num_rows):
             row = df.iloc[[i], 11:]
             model_input: np.ndarray = row.values

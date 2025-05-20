@@ -26,20 +26,20 @@ async def test():
     return {"msg": "Its working!"}
 
 
-@app.get("/model_names")
-def get_model_names():
-    model_names = list_dirs(
-        app_config["local"]["models_dir"]
-    )
+# @app.get("/model_names")
+# def get_model_names():
+#     model_names = list_dirs(
+#         app_config["local"]["models_dir"]
+#     )
 
-    return model_names
+#     return model_names
 
 
 @app.post("/evaluate/")
 async def evaluate(info: InferenceInfo):
 
-    logger.info("app_config", app_config)
-    logger.info("info", info)
+    # logger.info("app_config", app_config)
+    # logger.info("info", info)
 
     csv_data = None
 
@@ -63,8 +63,7 @@ async def evaluate(info: InferenceInfo):
         results = run_inference(
             info.models,
             parsed_data,
-            app_config["local"]["models_dir"],
-            app_config["local"]["label_encoder_dir"]
+            app_config["local"]["models_dir"]
         )
 
         return results
@@ -73,3 +72,27 @@ async def evaluate(info: InferenceInfo):
         logger.info(e)
         raise HTTPException(
             status_code=500, detail=f"Something went wrong: {e}")
+
+
+@app.get("/model_registry")
+def get_registry():
+    """Return the full model registry structure"""
+    from .storage import model_registry
+    return model_registry
+
+
+@app.get("/model_types")
+def get_model_types():
+    """Return all available model types"""
+    from .storage import get_available_models
+    return get_available_models()
+
+
+@app.get("/model_details/{model_type}")
+def get_model_details(model_type: str, prediction_type: str = None, balance_type: str = "balanced"):
+    """Return details for a specific model"""
+    from .storage import get_model_info
+    model_info = get_model_info(model_type, prediction_type, balance_type)
+    if model_info:
+        return model_info
+    return {"error": f"Model information not found for {model_type}/{prediction_type}/{balance_type}"}
