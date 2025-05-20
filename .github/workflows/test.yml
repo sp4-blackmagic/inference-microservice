@@ -11,6 +11,8 @@ on:
 
 permissions:
   contents: read
+  checks: write
+  pull-requests: write  # Optional: if you want comments on PRs
 
 jobs:
   run-tests:
