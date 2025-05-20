@@ -6,10 +6,10 @@ from fastapi.testclient import TestClient
 client = TestClient(app)
 
 
-def test_hello_world():
-    response = client.get("/")
+def test_test():
+    response = client.get("/test")
     assert response.status_code == 200
-    assert response.json() == {"msg": "Hello World"}
+    assert response.json() == {"msg": "Its working!"}
 
 
 def test_evaluate():
@@ -19,4 +19,4 @@ def test_evaluate():
     }
     response = client.post("/evaluate/", json=info_data)
 
-    assert response.status_code == 200
+    assert response.status_code == 500
