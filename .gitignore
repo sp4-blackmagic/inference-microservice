@@ -185,3 +185,5 @@ htmlcov/
 coverage.xml
 junit/
 test-results.xml
+coverage/
+lcov.info
