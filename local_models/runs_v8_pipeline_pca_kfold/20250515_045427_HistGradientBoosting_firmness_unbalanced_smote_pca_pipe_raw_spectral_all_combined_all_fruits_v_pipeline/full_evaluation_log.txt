@@ -1,0 +1,43 @@
+Config: UNB-raw_spe-HistGra-firm
+Run Dir: 20250515_045427_HistGradientBoosting_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 20 components for this fold training.
+  Fold 1: Acc=0.8636, F1-Macro=0.5444, F1-Weighted=0.8712
+  Fold 2: Acc=0.9540, F1-Macro=0.7716, F1-Weighted=0.9523
+  Fold 3: Acc=0.8506, F1-Macro=0.5691, F1-Weighted=0.8634
+  Fold 4: Acc=0.9310, F1-Macro=0.6750, F1-Weighted=0.9262
+  Fold 5: Acc=0.9195, F1-Macro=0.6157, F1-Weighted=0.9198
+CV Summary: Acc Mean=0.9038 (Std=0.0399)
+CV Summary: F1-Macro Mean=0.6352 (Std=0.0815)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 20 components.
+Final Training Time: 0.96s
+Memory Usage (RSS): 686.53MB
+Num Training Samples (Original Combined): 436
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 20
+Classes (from LabelEncoder): {0: 'firm', 1: 'medium', 2: 'soft'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.9489
+Test F1-Macro: 0.7804
+Test F1-Weighted: 0.9481
+Test Classification Report:
+              precision    recall  f1-score   support
+
+        firm       0.98      0.98      0.98       121
+      medium       0.60      0.60      0.60         5
+        soft       0.80      0.73      0.76        11
+
+    accuracy                           0.95       137
+   macro avg       0.79      0.77      0.78       137
+weighted avg       0.95      0.95      0.95       137
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045427_HistGradientBoosting_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_HistGradientBoosting_firmness.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045427_HistGradientBoosting_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_firmness.joblib

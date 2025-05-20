@@ -1,0 +1,43 @@
+Config: UNB-raw_spe-ExtraTr-firm
+Run Dir: 20250515_045407_ExtraTrees_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 20 components for this fold training.
+  Fold 1: Acc=0.9205, F1-Macro=0.7690, F1-Weighted=0.9283
+  Fold 2: Acc=0.9425, F1-Macro=0.7547, F1-Weighted=0.9434
+  Fold 3: Acc=0.8621, F1-Macro=0.5926, F1-Weighted=0.8685
+  Fold 4: Acc=0.8851, F1-Macro=0.5709, F1-Weighted=0.8918
+  Fold 5: Acc=0.9080, F1-Macro=0.6558, F1-Weighted=0.9120
+CV Summary: Acc Mean=0.9036 (Std=0.0279)
+CV Summary: F1-Macro Mean=0.6686 (Std=0.0812)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 20 components.
+Final Training Time: 0.48s
+Memory Usage (RSS): 674.43MB
+Num Training Samples (Original Combined): 436
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 20
+Classes (from LabelEncoder): {0: 'firm', 1: 'medium', 2: 'soft'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.8978
+Test F1-Macro: 0.6210
+Test F1-Weighted: 0.8928
+Test Classification Report:
+              precision    recall  f1-score   support
+
+        firm       0.95      0.96      0.95       121
+      medium       0.40      0.80      0.53         5
+        soft       0.60      0.27      0.38        11
+
+    accuracy                           0.90       137
+   macro avg       0.65      0.68      0.62       137
+weighted avg       0.90      0.90      0.89       137
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045407_ExtraTrees_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_ExtraTrees_firmness.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045407_ExtraTrees_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_firmness.joblib

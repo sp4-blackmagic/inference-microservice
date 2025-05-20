@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-LGBM-ripe
+Run Dir: 20250515_045047_LGBM_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.6733, F1-Macro=0.6405, F1-Weighted=0.6699
+  Fold 2: Acc=0.6733, F1-Macro=0.6638, F1-Weighted=0.6767
+  Fold 3: Acc=0.6100, F1-Macro=0.5857, F1-Weighted=0.6213
+  Fold 4: Acc=0.6800, F1-Macro=0.6684, F1-Weighted=0.6788
+  Fold 5: Acc=0.5700, F1-Macro=0.5545, F1-Weighted=0.5721
+CV Summary: Acc Mean=0.6413 (Std=0.0438)
+CV Summary: F1-Macro Mean=0.6226 (Std=0.0450)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 0.83s
+Memory Usage (RSS): 535.25MB
+Num Training Samples (Original Combined): 502
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.7079
+Test F1-Macro: 0.6880
+Test F1-Weighted: 0.7054
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.67      0.61      0.64        23
+     perfect       0.73      0.80      0.76        44
+      unripe       0.70      0.64      0.67        22
+
+    accuracy                           0.71        89
+   macro avg       0.70      0.68      0.69        89
+weighted avg       0.71      0.71      0.71        89
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045047_LGBM_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_LGBM_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045047_LGBM_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

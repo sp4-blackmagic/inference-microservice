@@ -1,0 +1,43 @@
+Config: UNB-raw_spe-Balance-firm
+Run Dir: 20250515_045509_BalancedRandomForest_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'classifier']
+SMOTE in Pipeline: False
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 20 components for this fold training.
+  Fold 1: Acc=0.8523, F1-Macro=0.6396, F1-Weighted=0.8771
+  Fold 2: Acc=0.9195, F1-Macro=0.7078, F1-Weighted=0.9242
+  Fold 3: Acc=0.8276, F1-Macro=0.5851, F1-Weighted=0.8535
+  Fold 4: Acc=0.8621, F1-Macro=0.6008, F1-Weighted=0.8821
+  Fold 5: Acc=0.8851, F1-Macro=0.5629, F1-Weighted=0.9001
+CV Summary: Acc Mean=0.8693 (Std=0.0312)
+CV Summary: F1-Macro Mean=0.6192 (Std=0.0509)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 20 components.
+Final Training Time: 0.59s
+Memory Usage (RSS): 706.00MB
+Num Training Samples (Original Combined): 436
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 20
+Classes (from LabelEncoder): {0: 'firm', 1: 'medium', 2: 'soft'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.9197
+Test F1-Macro: 0.7660
+Test F1-Weighted: 0.9281
+Test Classification Report:
+              precision    recall  f1-score   support
+
+        firm       0.99      0.93      0.96       121
+      medium       0.44      0.80      0.57         5
+        soft       0.67      0.91      0.77        11
+
+    accuracy                           0.92       137
+   macro avg       0.70      0.88      0.77       137
+weighted avg       0.95      0.92      0.93       137
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045509_BalancedRandomForest_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_BalancedRandomForest_firmness.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045509_BalancedRandomForest_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_firmness.joblib

@@ -1,0 +1,43 @@
+Config: UNB-raw_spe-MLPClas-ripe
+Run Dir: 20250515_045259_MLPClassifier_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 19 components for this fold training.
+  Fold 1: Acc=0.6044, F1-Macro=0.5931, F1-Weighted=0.6070
+  Fold 2: Acc=0.5934, F1-Macro=0.5702, F1-Weighted=0.5960
+  Fold 3: Acc=0.5604, F1-Macro=0.5299, F1-Weighted=0.5623
+  Fold 4: Acc=0.6222, F1-Macro=0.5903, F1-Weighted=0.6265
+  Fold 5: Acc=0.5444, F1-Macro=0.5390, F1-Weighted=0.5465
+CV Summary: Acc Mean=0.5850 (Std=0.0286)
+CV Summary: F1-Macro Mean=0.5645 (Std=0.0259)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 20 components.
+Final Training Time: 1.66s
+Memory Usage (RSS): 641.29MB
+Num Training Samples (Original Combined): 453
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 20
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.4710
+Test F1-Macro: 0.4802
+Test F1-Weighted: 0.4677
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.44      0.59      0.50        46
+     perfect       0.44      0.36      0.40        58
+      unripe       0.59      0.50      0.54        34
+
+    accuracy                           0.47       138
+   macro avg       0.49      0.48      0.48       138
+weighted avg       0.48      0.47      0.47       138
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045259_MLPClassifier_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_MLPClassifier_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045259_MLPClassifier_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

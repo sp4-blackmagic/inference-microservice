@@ -1,0 +1,43 @@
+Config: UNB-raw_spe-XGBoost-firm
+Run Dir: 20250515_045457_XGBoost_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 20 components for this fold training.
+  Fold 1: Acc=0.8636, F1-Macro=0.5775, F1-Weighted=0.8720
+  Fold 2: Acc=0.9310, F1-Macro=0.6861, F1-Weighted=0.9302
+  Fold 3: Acc=0.8621, F1-Macro=0.6358, F1-Weighted=0.8749
+  Fold 4: Acc=0.9080, F1-Macro=0.5940, F1-Weighted=0.9076
+  Fold 5: Acc=0.9080, F1-Macro=0.5649, F1-Weighted=0.9104
+CV Summary: Acc Mean=0.8946 (Std=0.0272)
+CV Summary: F1-Macro Mean=0.6117 (Std=0.0442)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 20 components.
+Final Training Time: 0.62s
+Memory Usage (RSS): 697.81MB
+Num Training Samples (Original Combined): 436
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 20
+Classes (from LabelEncoder): {0: 'firm', 1: 'medium', 2: 'soft'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.9416
+Test F1-Macro: 0.7841
+Test F1-Weighted: 0.9448
+Test Classification Report:
+              precision    recall  f1-score   support
+
+        firm       0.98      0.97      0.97       121
+      medium       0.50      0.80      0.62         5
+        soft       0.80      0.73      0.76        11
+
+    accuracy                           0.94       137
+   macro avg       0.76      0.83      0.78       137
+weighted avg       0.95      0.94      0.94       137
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045457_XGBoost_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_XGBoost_firmness.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045457_XGBoost_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_firmness.joblib

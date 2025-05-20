@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-ExtraTr-ripe
+Run Dir: 20250515_045008_ExtraTrees_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.6733, F1-Macro=0.6461, F1-Weighted=0.6734
+  Fold 2: Acc=0.6832, F1-Macro=0.6718, F1-Weighted=0.6848
+  Fold 3: Acc=0.6400, F1-Macro=0.5980, F1-Weighted=0.6336
+  Fold 4: Acc=0.7300, F1-Macro=0.7152, F1-Weighted=0.7276
+  Fold 5: Acc=0.6300, F1-Macro=0.6117, F1-Weighted=0.6297
+CV Summary: Acc Mean=0.6713 (Std=0.0354)
+CV Summary: F1-Macro Mean=0.6486 (Std=0.0422)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 0.57s
+Memory Usage (RSS): 455.00MB
+Num Training Samples (Original Combined): 502
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.7753
+Test F1-Macro: 0.7581
+Test F1-Weighted: 0.7725
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.74      0.74      0.74        23
+     perfect       0.78      0.86      0.82        44
+      unripe       0.82      0.64      0.72        22
+
+    accuracy                           0.78        89
+   macro avg       0.78      0.75      0.76        89
+weighted avg       0.78      0.78      0.77        89
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045008_ExtraTrees_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_ExtraTrees_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045008_ExtraTrees_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

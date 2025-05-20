@@ -1,0 +1,74 @@
+--- Inference Log for Best Model: KNeighbors for Target: firmness ---
+Run Directory: 20250515_045250_KNeighbors_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Path: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045250_KNeighbors_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_KNeighbors_firmness.joblib
+LabelEncoder Path: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045250_KNeighbors_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_firmness.joblib
+Successfully loaded pipeline and label encoder.
+Test data loaded for inference: 137 samples.
+
+Inference Metrics on Test Set:
+  Accuracy: 0.9124
+  F1-Macro: 0.7108
+  Classification Report:
+              precision    recall  f1-score   support
+
+        firm       1.00      0.93      0.97       121
+      medium       0.36      0.80      0.50         5
+        soft       0.62      0.73      0.67        11
+
+    accuracy                           0.91       137
+   macro avg       0.66      0.82      0.71       137
+weighted avg       0.95      0.91      0.92       137
+
+
+--- Probability Predictions for Test Set Samples (First 50) ---
+Index | True Label (Encoded) | True Label (Name) | Predicted Label (Encoded) | Predicted Label (Name) | Probabilities
+0     | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 5, Fruit: Kiwi)
+1     | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 6, Fruit: Kiwi)
+2     | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 7, Fruit: Kiwi)
+3     | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 8, Fruit: Kiwi)
+4     | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 3, Fruit: Kiwi)
+5     | 0                    | firm               | 2                         | soft                   | 0.200, 0.000, 0.800 (ID: 10, Fruit: Avocado)
+6     | 2                    | soft               | 2                         | soft                   | 0.000, 0.000, 1.000 (ID: 13, Fruit: Avocado)
+7     | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 15, Fruit: Kiwi)
+8     | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 18, Fruit: Kiwi)
+9     | 0                    | firm               | 2                         | soft                   | 0.000, 0.000, 1.000 (ID: 12, Fruit: Avocado)
+10    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 20, Fruit: Kiwi)
+11    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 24, Fruit: Kiwi)
+12    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 25, Fruit: Kiwi)
+13    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 21, Fruit: Avocado)
+14    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 23, Fruit: Avocado)
+15    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 29, Fruit: Kiwi)
+16    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 27, Fruit: Avocado)
+17    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 26, Fruit: Kiwi)
+18    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 33, Fruit: Avocado)
+19    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 34, Fruit: Avocado)
+20    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 39, Fruit: Kiwi)
+21    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 36, Fruit: Avocado)
+22    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 40, Fruit: Avocado)
+23    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 43, Fruit: Kiwi)
+24    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 46, Fruit: Kiwi)
+25    | 0                    | firm               | 0                         | firm                   | 0.800, 0.200, 0.000 (ID: 42, Fruit: Avocado)
+26    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 44, Fruit: Avocado)
+27    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 49, Fruit: Kiwi)
+28    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 48, Fruit: Kiwi)
+29    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 47, Fruit: Avocado)
+30    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 50, Fruit: Kiwi)
+31    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 41, Fruit: Avocado)
+32    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 51, Fruit: Kiwi)
+33    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 52, Fruit: Kiwi)
+34    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 55, Fruit: Kiwi)
+35    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 57, Fruit: Kaki)
+36    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 58, Fruit: Kaki)
+37    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 59, Fruit: Kaki)
+38    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 62, Fruit: Kaki)
+39    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 54, Fruit: Kiwi)
+40    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 64, Fruit: Kaki)
+41    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 56, Fruit: Kiwi)
+42    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 66, Fruit: Kaki)
+43    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 70, Fruit: Kaki)
+44    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 72, Fruit: Kaki)
+45    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 53, Fruit: Kiwi)
+46    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 74, Fruit: Kaki)
+47    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 77, Fruit: Kaki)
+48    | 0                    | firm               | 0                         | firm                   | 1.000, 0.000, 0.000 (ID: 78, Fruit: Kaki)
+49    | 2                    | soft               | 1                         | medium                 | 0.000, 0.600, 0.400 (ID: 79, Fruit: Kaki)

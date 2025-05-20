@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-EasyEns-ripe
+Run Dir: 20250515_045133_EasyEnsemble_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'classifier']
+SMOTE in Pipeline: False
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.5149, F1-Macro=0.5077, F1-Weighted=0.5291
+  Fold 2: Acc=0.5644, F1-Macro=0.5644, F1-Weighted=0.5645
+  Fold 3: Acc=0.5400, F1-Macro=0.5213, F1-Weighted=0.5509
+  Fold 4: Acc=0.5900, F1-Macro=0.5889, F1-Weighted=0.5900
+  Fold 5: Acc=0.5700, F1-Macro=0.5701, F1-Weighted=0.5682
+CV Summary: Acc Mean=0.5558 (Std=0.0260)
+CV Summary: F1-Macro Mean=0.5505 (Std=0.0308)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 1.45s
+Memory Usage (RSS): 579.16MB
+Num Training Samples (Original Combined): 502
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.6067
+Test F1-Macro: 0.5940
+Test F1-Weighted: 0.6053
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.58      0.48      0.52        23
+     perfect       0.68      0.61      0.64        44
+      unripe       0.53      0.73      0.62        22
+
+    accuracy                           0.61        89
+   macro avg       0.60      0.61      0.59        89
+weighted avg       0.62      0.61      0.61        89
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045133_EasyEnsemble_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_EasyEnsemble_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045133_EasyEnsemble_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

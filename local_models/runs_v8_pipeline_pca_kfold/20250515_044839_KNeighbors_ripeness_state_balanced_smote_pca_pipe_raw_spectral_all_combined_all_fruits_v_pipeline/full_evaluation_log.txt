@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-KNeighb-ripe
+Run Dir: 20250515_044839_KNeighbors_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.4950, F1-Macro=0.4950, F1-Weighted=0.4946
+  Fold 2: Acc=0.6436, F1-Macro=0.6433, F1-Weighted=0.6398
+  Fold 3: Acc=0.5600, F1-Macro=0.5482, F1-Weighted=0.5709
+  Fold 4: Acc=0.5900, F1-Macro=0.5892, F1-Weighted=0.5858
+  Fold 5: Acc=0.6000, F1-Macro=0.5995, F1-Weighted=0.6009
+CV Summary: Acc Mean=0.5777 (Std=0.0493)
+CV Summary: F1-Macro Mean=0.5750 (Std=0.0502)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 0.84s
+Memory Usage (RSS): 450.11MB
+Num Training Samples (Original Combined): 502
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.6404
+Test F1-Macro: 0.6413
+Test F1-Weighted: 0.6412
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.55      0.70      0.62        23
+     perfect       0.70      0.59      0.64        44
+      unripe       0.65      0.68      0.67        22
+
+    accuracy                           0.64        89
+   macro avg       0.64      0.66      0.64        89
+weighted avg       0.65      0.64      0.64        89
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_044839_KNeighbors_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_KNeighbors_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_044839_KNeighbors_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

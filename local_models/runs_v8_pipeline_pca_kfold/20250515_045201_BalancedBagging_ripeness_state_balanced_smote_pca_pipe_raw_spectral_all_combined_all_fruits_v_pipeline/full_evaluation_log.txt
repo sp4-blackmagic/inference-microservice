@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-Balance-ripe
+Run Dir: 20250515_045201_BalancedBagging_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'classifier']
+SMOTE in Pipeline: False
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.5446, F1-Macro=0.5292, F1-Weighted=0.5545
+  Fold 2: Acc=0.6733, F1-Macro=0.6678, F1-Weighted=0.6780
+  Fold 3: Acc=0.6400, F1-Macro=0.6157, F1-Weighted=0.6514
+  Fold 4: Acc=0.7100, F1-Macro=0.6971, F1-Weighted=0.7089
+  Fold 5: Acc=0.6100, F1-Macro=0.6081, F1-Weighted=0.6102
+CV Summary: Acc Mean=0.6356 (Std=0.0564)
+CV Summary: F1-Macro Mean=0.6236 (Std=0.0576)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 1.03s
+Memory Usage (RSS): 587.16MB
+Num Training Samples (Original Combined): 502
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.6966
+Test F1-Macro: 0.6872
+Test F1-Weighted: 0.7000
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.73      0.70      0.71        23
+     perfect       0.78      0.70      0.74        44
+      unripe       0.56      0.68      0.61        22
+
+    accuracy                           0.70        89
+   macro avg       0.69      0.69      0.69        89
+weighted avg       0.71      0.70      0.70        89
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045201_BalancedBagging_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_BalancedBagging_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045201_BalancedBagging_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

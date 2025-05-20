@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-Gaussia-firm
+Run Dir: 20250515_044900_GaussianNB_firmness_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.8469, F1-Macro=0.5630, F1-Weighted=0.8700
+  Fold 2: Acc=0.8866, F1-Macro=0.6367, F1-Weighted=0.8980
+  Fold 3: Acc=0.8454, F1-Macro=0.6326, F1-Weighted=0.8614
+  Fold 4: Acc=0.9072, F1-Macro=0.7375, F1-Weighted=0.9205
+  Fold 5: Acc=0.8454, F1-Macro=0.5938, F1-Weighted=0.8742
+CV Summary: Acc Mean=0.8663 (Std=0.0258)
+CV Summary: F1-Macro Mean=0.6327 (Std=0.0589)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 0.28s
+Memory Usage (RSS): 450.11MB
+Num Training Samples (Original Combined): 486
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'firm', 1: 'medium', 2: 'soft'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.8621
+Test F1-Macro: 0.6235
+Test F1-Weighted: 0.8746
+Test Classification Report:
+              precision    recall  f1-score   support
+
+        firm       0.96      0.90      0.93        77
+      medium       0.40      0.67      0.50         6
+        soft       0.40      0.50      0.44         4
+
+    accuracy                           0.86        87
+   macro avg       0.59      0.69      0.62        87
+weighted avg       0.89      0.86      0.87        87
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_044900_GaussianNB_firmness_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_GaussianNB_firmness.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_044900_GaussianNB_firmness_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_firmness.joblib

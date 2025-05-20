@@ -1,0 +1,13 @@
+Config: BAL-raw_spe-Multino-ripe
+Run Dir: 20250515_045025_MultinomialNB_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  Fold 1 Error: Negative values in data passed to MultinomialNB (input X).. Skipping fold.
+  Fold 2 Error: Negative values in data passed to MultinomialNB (input X).. Skipping fold.
+  Fold 3 Error: Negative values in data passed to MultinomialNB (input X).. Skipping fold.
+  Fold 4 Error: Negative values in data passed to MultinomialNB (input X).. Skipping fold.
+  Fold 5 Error: Negative values in data passed to MultinomialNB (input X).. Skipping fold.
+K-Fold CV failed for all folds.

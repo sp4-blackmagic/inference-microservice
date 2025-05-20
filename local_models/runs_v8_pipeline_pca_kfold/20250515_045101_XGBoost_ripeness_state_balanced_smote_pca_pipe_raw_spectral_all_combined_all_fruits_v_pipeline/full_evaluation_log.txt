@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-XGBoost-ripe
+Run Dir: 20250515_045101_XGBoost_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.6535, F1-Macro=0.6247, F1-Weighted=0.6522
+  Fold 2: Acc=0.6436, F1-Macro=0.6337, F1-Weighted=0.6473
+  Fold 3: Acc=0.6700, F1-Macro=0.6376, F1-Weighted=0.6730
+  Fold 4: Acc=0.7100, F1-Macro=0.6910, F1-Weighted=0.7065
+  Fold 5: Acc=0.6000, F1-Macro=0.5884, F1-Weighted=0.6008
+CV Summary: Acc Mean=0.6554 (Std=0.0358)
+CV Summary: F1-Macro Mean=0.6351 (Std=0.0329)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 3.28s
+Memory Usage (RSS): 553.09MB
+Num Training Samples (Original Combined): 502
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.6742
+Test F1-Macro: 0.6396
+Test F1-Weighted: 0.6660
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.69      0.48      0.56        23
+     perfect       0.69      0.82      0.75        44
+      unripe       0.62      0.59      0.60        22
+
+    accuracy                           0.67        89
+   macro avg       0.67      0.63      0.64        89
+weighted avg       0.67      0.67      0.67        89
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045101_XGBoost_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_XGBoost_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045101_XGBoost_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

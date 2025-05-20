@@ -1,0 +1,43 @@
+Config: UNB-raw_spe-Logisti-ripe
+Run Dir: 20250515_045231_LogisticRegression_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 19 components for this fold training.
+  Fold 1: Acc=0.5385, F1-Macro=0.5138, F1-Weighted=0.5407
+  Fold 2: Acc=0.5495, F1-Macro=0.5443, F1-Weighted=0.5592
+  Fold 3: Acc=0.4945, F1-Macro=0.4867, F1-Weighted=0.5064
+  Fold 4: Acc=0.5222, F1-Macro=0.5076, F1-Weighted=0.5288
+  Fold 5: Acc=0.5444, F1-Macro=0.5519, F1-Weighted=0.5443
+CV Summary: Acc Mean=0.5298 (Std=0.0199)
+CV Summary: F1-Macro Mean=0.5208 (Std=0.0241)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 20 components.
+Final Training Time: 0.92s
+Memory Usage (RSS): 616.03MB
+Num Training Samples (Original Combined): 453
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 20
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.3623
+Test F1-Macro: 0.3583
+Test F1-Weighted: 0.3584
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.34      0.48      0.40        46
+     perfect       0.40      0.29      0.34        58
+      unripe       0.35      0.32      0.34        34
+
+    accuracy                           0.36       138
+   macro avg       0.37      0.36      0.36       138
+weighted avg       0.37      0.36      0.36       138
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045231_LogisticRegression_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_LogisticRegression_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045231_LogisticRegression_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

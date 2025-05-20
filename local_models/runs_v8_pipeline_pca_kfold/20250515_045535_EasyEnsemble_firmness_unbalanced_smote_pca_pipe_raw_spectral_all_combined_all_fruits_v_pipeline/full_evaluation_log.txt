@@ -1,0 +1,43 @@
+Config: UNB-raw_spe-EasyEns-firm
+Run Dir: 20250515_045535_EasyEnsemble_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'classifier']
+SMOTE in Pipeline: False
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 20 components for this fold training.
+  Fold 1: Acc=0.7955, F1-Macro=0.4993, F1-Weighted=0.8372
+  Fold 2: Acc=0.8736, F1-Macro=0.7040, F1-Weighted=0.8953
+  Fold 3: Acc=0.8046, F1-Macro=0.5619, F1-Weighted=0.8371
+  Fold 4: Acc=0.7931, F1-Macro=0.4797, F1-Weighted=0.8360
+  Fold 5: Acc=0.8046, F1-Macro=0.4730, F1-Weighted=0.8479
+CV Summary: Acc Mean=0.8143 (Std=0.0300)
+CV Summary: F1-Macro Mean=0.5436 (Std=0.0861)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 20 components.
+Final Training Time: 1.11s
+Memory Usage (RSS): 719.38MB
+Num Training Samples (Original Combined): 436
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 20
+Classes (from LabelEncoder): {0: 'firm', 1: 'medium', 2: 'soft'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.9051
+Test F1-Macro: 0.7310
+Test F1-Weighted: 0.9189
+Test Classification Report:
+              precision    recall  f1-score   support
+
+        firm       1.00      0.91      0.95       121
+      medium       0.36      0.80      0.50         5
+        soft       0.62      0.91      0.74        11
+
+    accuracy                           0.91       137
+   macro avg       0.66      0.87      0.73       137
+weighted avg       0.95      0.91      0.92       137
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045535_EasyEnsemble_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_EasyEnsemble_firmness.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045535_EasyEnsemble_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_firmness.joblib

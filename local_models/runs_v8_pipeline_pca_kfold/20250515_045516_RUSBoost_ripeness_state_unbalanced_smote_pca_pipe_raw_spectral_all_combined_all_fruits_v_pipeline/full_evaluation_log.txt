@@ -1,0 +1,42 @@
+Config: UNB-raw_spe-RUSBoos-ripe
+Run Dir: 20250515_045516_RUSBoost_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'classifier']
+SMOTE in Pipeline: False
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  Fold 1 Error: BaseClassifier in AdaBoostClassifier ensemble is worse than random, ensemble can not be fit.. Skipping fold.
+  Fold 2: Acc=0.3187, F1-Macro=0.3000, F1-Weighted=0.2132
+  Fold 3: Acc=0.3187, F1-Macro=0.2942, F1-Weighted=0.2087
+  Fold 4: Acc=0.5222, F1-Macro=0.3884, F1-Weighted=0.4547
+  Fold 5 Error: BaseClassifier in AdaBoostClassifier ensemble is worse than random, ensemble can not be fit.. Skipping fold.
+CV Summary: Acc Mean=0.3865 (Std=0.0960)
+CV Summary: F1-Macro Mean=0.3275 (Std=0.0431)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 20 components.
+Final Training Time: 0.27s
+Memory Usage (RSS): 709.61MB
+Num Training Samples (Original Combined): 453
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 20
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.4420
+Test F1-Macro: 0.3736
+Test F1-Weighted: 0.3234
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.46      0.67      0.54        46
+     perfect       0.00      0.00      0.00        58
+      unripe       0.43      0.88      0.58        34
+
+    accuracy                           0.44       138
+   macro avg       0.29      0.52      0.37       138
+weighted avg       0.26      0.44      0.32       138
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045516_RUSBoost_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_RUSBoost_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045516_RUSBoost_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

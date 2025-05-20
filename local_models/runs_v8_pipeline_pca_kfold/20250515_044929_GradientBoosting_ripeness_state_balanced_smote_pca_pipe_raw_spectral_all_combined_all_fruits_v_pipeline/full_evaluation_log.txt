@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-Gradien-ripe
+Run Dir: 20250515_044929_GradientBoosting_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.5941, F1-Macro=0.5637, F1-Weighted=0.5948
+  Fold 2: Acc=0.6634, F1-Macro=0.6622, F1-Weighted=0.6642
+  Fold 3: Acc=0.6400, F1-Macro=0.6142, F1-Weighted=0.6450
+  Fold 4: Acc=0.6200, F1-Macro=0.6106, F1-Weighted=0.6194
+  Fold 5: Acc=0.5700, F1-Macro=0.5658, F1-Weighted=0.5710
+CV Summary: Acc Mean=0.6175 (Std=0.0329)
+CV Summary: F1-Macro Mean=0.6033 (Std=0.0364)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 3.57s
+Memory Usage (RSS): 450.11MB
+Num Training Samples (Original Combined): 502
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.7079
+Test F1-Macro: 0.6992
+Test F1-Weighted: 0.7076
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.75      0.65      0.70        23
+     perfect       0.72      0.75      0.73        44
+      unripe       0.65      0.68      0.67        22
+
+    accuracy                           0.71        89
+   macro avg       0.71      0.69      0.70        89
+weighted avg       0.71      0.71      0.71        89
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_044929_GradientBoosting_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_GradientBoosting_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_044929_GradientBoosting_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

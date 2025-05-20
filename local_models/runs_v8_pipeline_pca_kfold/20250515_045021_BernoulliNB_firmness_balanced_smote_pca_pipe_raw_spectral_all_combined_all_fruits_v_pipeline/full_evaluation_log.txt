@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-Bernoul-firm
+Run Dir: 20250515_045021_BernoulliNB_firmness_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.8980, F1-Macro=0.6712, F1-Weighted=0.9101
+  Fold 2: Acc=0.8763, F1-Macro=0.6342, F1-Weighted=0.8971
+  Fold 3: Acc=0.8041, F1-Macro=0.4986, F1-Weighted=0.8357
+  Fold 4: Acc=0.8041, F1-Macro=0.5353, F1-Weighted=0.8380
+  Fold 5: Acc=0.8247, F1-Macro=0.6010, F1-Weighted=0.8583
+CV Summary: Acc Mean=0.8414 (Std=0.0387)
+CV Summary: F1-Macro Mean=0.5881 (Std=0.0632)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 0.45s
+Memory Usage (RSS): 462.85MB
+Num Training Samples (Original Combined): 486
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'firm', 1: 'medium', 2: 'soft'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.8736
+Test F1-Macro: 0.6045
+Test F1-Weighted: 0.8823
+Test Classification Report:
+              precision    recall  f1-score   support
+
+        firm       0.96      0.92      0.94        77
+      medium       0.38      0.50      0.43         6
+        soft       0.40      0.50      0.44         4
+
+    accuracy                           0.87        87
+   macro avg       0.58      0.64      0.60        87
+weighted avg       0.89      0.87      0.88        87
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045021_BernoulliNB_firmness_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_BernoulliNB_firmness.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045021_BernoulliNB_firmness_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_firmness.joblib

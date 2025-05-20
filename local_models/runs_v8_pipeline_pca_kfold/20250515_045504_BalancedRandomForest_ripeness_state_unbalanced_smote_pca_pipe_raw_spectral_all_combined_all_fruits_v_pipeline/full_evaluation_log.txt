@@ -1,0 +1,43 @@
+Config: UNB-raw_spe-Balance-ripe
+Run Dir: 20250515_045504_BalancedRandomForest_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'classifier']
+SMOTE in Pipeline: False
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 19 components for this fold training.
+  Fold 1: Acc=0.7033, F1-Macro=0.6845, F1-Weighted=0.7032
+  Fold 2: Acc=0.6703, F1-Macro=0.6475, F1-Weighted=0.6793
+  Fold 3: Acc=0.5714, F1-Macro=0.5334, F1-Weighted=0.5810
+  Fold 4: Acc=0.6444, F1-Macro=0.6393, F1-Weighted=0.6475
+  Fold 5: Acc=0.5778, F1-Macro=0.5637, F1-Weighted=0.5834
+CV Summary: Acc Mean=0.6335 (Std=0.0516)
+CV Summary: F1-Macro Mean=0.6137 (Std=0.0561)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 20 components.
+Final Training Time: 0.67s
+Memory Usage (RSS): 702.21MB
+Num Training Samples (Original Combined): 453
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 20
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.5072
+Test F1-Macro: 0.5029
+Test F1-Weighted: 0.4980
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.52      0.72      0.60        46
+     perfect       0.46      0.40      0.43        58
+      unripe       0.58      0.41      0.48        34
+
+    accuracy                           0.51       138
+   macro avg       0.52      0.51      0.50       138
+weighted avg       0.51      0.51      0.50       138
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045504_BalancedRandomForest_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_BalancedRandomForest_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045504_BalancedRandomForest_ripeness_state_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

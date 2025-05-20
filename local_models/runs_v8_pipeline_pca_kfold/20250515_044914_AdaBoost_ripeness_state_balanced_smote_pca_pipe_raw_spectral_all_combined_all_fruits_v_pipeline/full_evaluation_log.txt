@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-AdaBoos-ripe
+Run Dir: 20250515_044914_AdaBoost_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.4950, F1-Macro=0.4816, F1-Weighted=0.5020
+  Fold 2: Acc=0.5347, F1-Macro=0.5278, F1-Weighted=0.5374
+  Fold 3: Acc=0.5000, F1-Macro=0.4871, F1-Weighted=0.5144
+  Fold 4: Acc=0.5900, F1-Macro=0.5802, F1-Weighted=0.5913
+  Fold 5: Acc=0.5900, F1-Macro=0.5788, F1-Weighted=0.5933
+CV Summary: Acc Mean=0.5419 (Std=0.0415)
+CV Summary: F1-Macro Mean=0.5311 (Std=0.0426)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 0.86s
+Memory Usage (RSS): 450.11MB
+Num Training Samples (Original Combined): 502
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'overripe', 1: 'perfect', 2: 'unripe'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.5955
+Test F1-Macro: 0.5602
+Test F1-Weighted: 0.5872
+Test Classification Report:
+              precision    recall  f1-score   support
+
+    overripe       0.56      0.39      0.46        23
+     perfect       0.63      0.73      0.67        44
+      unripe       0.55      0.55      0.55        22
+
+    accuracy                           0.60        89
+   macro avg       0.58      0.55      0.56        89
+weighted avg       0.59      0.60      0.59        89
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_044914_AdaBoost_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_AdaBoost_ripeness_state.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_044914_AdaBoost_ripeness_state_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_ripeness_state.joblib

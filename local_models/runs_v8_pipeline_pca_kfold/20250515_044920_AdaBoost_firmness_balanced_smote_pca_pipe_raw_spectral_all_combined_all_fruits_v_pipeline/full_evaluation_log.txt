@@ -1,0 +1,43 @@
+Config: BAL-raw_spe-AdaBoos-firm
+Run Dir: 20250515_044920_AdaBoost_firmness_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 18 components for this fold training.
+  Fold 1: Acc=0.8980, F1-Macro=0.6784, F1-Weighted=0.9114
+  Fold 2: Acc=0.9072, F1-Macro=0.6454, F1-Weighted=0.9054
+  Fold 3: Acc=0.8557, F1-Macro=0.6473, F1-Weighted=0.8742
+  Fold 4: Acc=0.8969, F1-Macro=0.7218, F1-Weighted=0.9133
+  Fold 5: Acc=0.8866, F1-Macro=0.6791, F1-Weighted=0.9057
+CV Summary: Acc Mean=0.8889 (Std=0.0178)
+CV Summary: F1-Macro Mean=0.6744 (Std=0.0278)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 18 components.
+Final Training Time: 1.91s
+Memory Usage (RSS): 450.11MB
+Num Training Samples (Original Combined): 486
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 18
+Classes (from LabelEncoder): {0: 'firm', 1: 'medium', 2: 'soft'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.9195
+Test F1-Macro: 0.7644
+Test F1-Weighted: 0.9263
+Test Classification Report:
+              precision    recall  f1-score   support
+
+        firm       0.99      0.94      0.96        77
+      medium       0.50      1.00      0.67         6
+        soft       1.00      0.50      0.67         4
+
+    accuracy                           0.92        87
+   macro avg       0.83      0.81      0.76        87
+weighted avg       0.95      0.92      0.93        87
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_044920_AdaBoost_firmness_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_AdaBoost_firmness.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_044920_AdaBoost_firmness_balanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_firmness.joblib

@@ -1,0 +1,43 @@
+Config: UNB-raw_spe-Decisio-firm
+Run Dir: 20250515_045243_DecisionTree_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline
+Pipeline Steps: ['imputer', 'scaler', 'pca', 'smote', 'classifier']
+SMOTE in Pipeline: True
+PCA in Pipeline: True (n_components=0.95)
+
+--- K-Fold Cross-Validation (K=5) ---
+  PCA fitted with 20 components for this fold training.
+  Fold 1: Acc=0.8295, F1-Macro=0.5023, F1-Weighted=0.8520
+  Fold 2: Acc=0.8966, F1-Macro=0.5129, F1-Weighted=0.8779
+  Fold 3: Acc=0.9080, F1-Macro=0.6899, F1-Weighted=0.9048
+  Fold 4: Acc=0.8966, F1-Macro=0.6438, F1-Weighted=0.9035
+  Fold 5: Acc=0.8276, F1-Macro=0.4668, F1-Weighted=0.8486
+CV Summary: Acc Mean=0.8717 (Std=0.0354)
+CV Summary: F1-Macro Mean=0.5631 (Std=0.0873)
+
+--- Training Final Pipeline on Full Combined Training Data ---
+Final PCA used 20 components.
+Final Training Time: 0.27s
+Memory Usage (RSS): 624.02MB
+Num Training Samples (Original Combined): 436
+Num Features Before PCA: 1120
+Num Features After PCA (if applied): 20
+Classes (from LabelEncoder): {0: 'firm', 1: 'medium', 2: 'soft'}
+
+--- Evaluation: Test (on Final Pipeline) ---
+Test Accuracy: 0.9051
+Test F1-Macro: 0.7138
+Test F1-Weighted: 0.9121
+Test Classification Report:
+              precision    recall  f1-score   support
+
+        firm       0.97      0.93      0.95       121
+      medium       0.43      0.60      0.50         5
+        soft       0.60      0.82      0.69        11
+
+    accuracy                           0.91       137
+   macro avg       0.67      0.78      0.71       137
+weighted avg       0.92      0.91      0.91       137
+
+
+Final pipeline saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045243_DecisionTree_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/pipeline_DecisionTree_firmness.joblib
+LabelEncoder (fitted on combined train data) saved to: /content/drive/MyDrive/sp4/machine_learning/runs_v8_pipeline_pca_kfold/20250515_045243_DecisionTree_firmness_unbalanced_smote_pca_pipe_raw_spectral_all_combined_all_fruits_v_pipeline/label_encoder_firmness.joblib
