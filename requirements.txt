@@ -5,10 +5,15 @@ rich
 uvicorn
 python-multipart
 dask
-pytest
 joblib
 numpy
 pandas
 toml
 scikit-learn
 imblearn
+lightgbm
+
+
+# test
+pytest
+pytest-cov

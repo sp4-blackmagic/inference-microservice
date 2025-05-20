@@ -2,7 +2,13 @@
 url="http://127.0.0.1:8000/download_item/"
 
 [local]
-models_dir = "./local_models"
+models_dir = "./local_models/runs_v8_pipeline_pca_kfold/"
 label_encoder_dir="./label_encoder/"
 model_extension="joblib"
+
+[registry]
+# Default model settings when not specified
+default_model_type = "RandomForest"  
+default_prediction_types = ["ripeness_state", "firmness"]
+default_balance_type = "balanced"
 
