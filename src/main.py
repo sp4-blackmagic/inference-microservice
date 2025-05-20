@@ -25,7 +25,7 @@ app_config = load_config()
 async def test():
     return {"msg": "Its working!"}
 
-
+# returns the names of directories in the models directory - may be confusing when picking a model
 # @app.get("/model_names")
 # def get_model_names():
 #     model_names = list_dirs(
