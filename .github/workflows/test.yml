@@ -5,9 +5,9 @@ name: Python tests
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -30,4 +30,39 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest pytest-cov
-        pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        mkdir -p junit htmlcov
+        pytest tests/ --doctest-modules --junitxml=junit/test-results.xml --cov=src --cov-report=xml --cov-report=html
+        
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()  # Upload even if tests fail
+      with:
+        name: pytest-results
+        path: |
+          junit/test-results.xml
+          coverage.xml
+          htmlcov/
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v3
+      if: always()  # Always run this step, even if tests fail
+      with:
+        report_paths: 'junit/test-results.xml'
+        fail_on_failure: true
+        summary: true
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage.xml
+        fail_ci_if_error: false
+        verbose: true
+    - name: Coverage Status Check
+      uses: devmasx/coverage-check-action@v1.2.0
+      with:
+        type: lcov
+        result_path: ./coverage/lcov.info
+        min_coverage: 75
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Generate Coverage Badge
+      uses: tj-actions/coverage-badge-py@v2
+      with:
+        output: coverage.svg
