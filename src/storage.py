@@ -27,7 +27,7 @@ async def fetch_file(file_uid: str, api_url: str) -> bytes | None:
             return data
 
     except httpx.HTTPStatusError as e:
-        logger.erorr(f"HTTP error occurred: {e}")
+        logger.error(f"HTTP error occurred: {e}")
         raise HTTPException(
             status_code=e.response.status_code,
             detail=f"Failed to download {file_uid}: {e.response.reason_phrase}"
@@ -167,7 +167,9 @@ def build_model_registry(models_dir):
                 prediction_type = "ripeness_state"
             
             # Determine balance type (balanced or unbalanced)
-            balance_type = "balanced" if "balanced" in model_dir else "unbalanced"
+            # Check specifically for "balanced" as a separate word component
+            parts_set = set(parts)
+            balance_type = "balanced" if "balanced" in parts_set else "unbalanced"
             
             # Initialize the nested dictionary structure if needed
             if model_type not in model_registry:

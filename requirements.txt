@@ -17,3 +17,4 @@ lightgbm
 # test
 pytest
 pytest-cov
+pytest-asyncio
