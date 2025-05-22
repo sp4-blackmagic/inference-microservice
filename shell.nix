@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  pythonEnv = pkgs.python3.withPackages (ps: with ps; [
+  pythonEnv = pkgs.python310.withPackages (ps: with ps; [
     pkgs.python3Packages.pip
   ]);
 in

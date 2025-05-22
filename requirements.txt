@@ -4,7 +4,6 @@ httpx
 rich
 uvicorn
 python-multipart
-dask
 joblib
 numpy
 pandas
@@ -13,6 +12,9 @@ scikit-learn
 imblearn
 lightgbm
 
+# cluster
+dask
+distributed
 
 # test
 pytest
