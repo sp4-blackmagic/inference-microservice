@@ -34,6 +34,22 @@ async def test():
 
 #     return model_names
 
+@app.post("/test_cluster/")
+async def test_cluster():
+    """
+    Test the connection to the cluster.
+    """
+    from .run_inference import load_cluster
+    try:
+        client = load_cluster()
+        if client:
+            return {"status": "Cluster is reachable"}
+        else:
+            return {"status": "Cluster is not reachable"}
+    except Exception as e:
+        logger.error(f"Error testing cluster: {e}")
+        raise HTTPException(status_code=500, detail="Error testing cluster")
+
 
 @app.post("/evaluate/")
 async def evaluate(info: InferenceInfo):
