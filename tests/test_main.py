@@ -12,6 +12,13 @@ def test_test():
     assert response.json() == {"msg": "Its working!"}
 
 
+def _test_test_cluster():
+    response = client.get("/test_cluster")
+
+    assert response.status_code == 200
+    assert response.json() == {"status": "Cluster is not reachable"}
+
+
 def test_evaluate():
     info_data = {
         "file_uid": "1",

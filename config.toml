@@ -12,3 +12,5 @@ default_model_type = "RandomForest"
 default_prediction_types = ["ripeness_state", "firmness"]
 default_balance_type = "balanced"
 
+[parser]
+row_limit = 30

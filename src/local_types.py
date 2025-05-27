@@ -5,6 +5,7 @@ from typing import Literal, Optional, List, Dict
 class InferenceInfo(BaseModel):
     file_uid: str
     models: list[str]
+    storage_api_url: Optional[str] = None
 
 
 class PredictionResult(BaseModel):

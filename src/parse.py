@@ -1,6 +1,7 @@
 import pandas as pd  # Assuming data is tabular, e.g., CSV
 import numpy as np
 from fastapi import HTTPException
+from typing import Optional
 
 import tarfile
 import io
@@ -10,7 +11,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def parse_data_for_model(data: str) -> list[np.ndarray]:
+def parse_data_for_model(data: str, row_limit: int = 30) -> list[np.ndarray]:
     """
     Pass the path to a CSV file to parse into a numpy array
     """
@@ -20,17 +21,27 @@ def parse_data_for_model(data: str) -> list[np.ndarray]:
         df = pd.read_csv(data)
         logger.info(f"Data loaded for inference. Shape: {df.shape}")
 
+        # check if first row is header
+        # print("column 0:" ,df.columns[0])
+        # if df.columns[0].startswith('record_json_id'):
+        #     logger.info("First row is a header, skipping first row.")
+        #     df = df.iloc[1:]
+
         num_rows = len(df)
 
-        if num_rows > 30:
-            num_rows = 30  # cap at 30 for now
+        if num_rows > row_limit:
+            num_rows = row_limit  # cap at 30 if not set
 
-        # TODO: get back here once the preprocessor is done and data format is known
-        for i in range(1, num_rows):
-            row = df.iloc[[i], 11:]
+        for i in range(0, num_rows):
+            row = df.iloc[[i], -1120:] # get 1120 cols from the end (if there are some extra cols in the beginning) just skip
             model_input: np.ndarray = row.values
 
+            logger.info(f"Row {i} parsed for inference: {model_input.shape}")
+            # logger.info(f"Row {i} data: {model_input}")
+
             data_for_inference.append(model_input)
+        
+        logger.info(f"Total rows parsed for inference: {len(data_for_inference)}")
         return data_for_inference
 
     except Exception as e:

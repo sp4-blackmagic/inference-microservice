@@ -271,6 +271,15 @@ def run_inference_serial(
                 logger.info("pipeline %s", pipeline_file_path)
                 logger.info("encoder %s", encoder_file_path)
 
+                if pipeline_file_path is None or encoder_file_path is None:
+                    logger.warning(
+                        f"Model {model_name}/{pred_type_label} does not have valid paths in registry.")
+                    results["results"][idx][model_name][pred_type_label] = {
+                        "status": "error",
+                        "message": f"Model {model_name}/{pred_type_label} does not have valid paths in registry."
+                    }
+                    continue
+
                 logger.info(
                     f"--- Running inference for {model_name} ({pred_type_label}) ---")
 

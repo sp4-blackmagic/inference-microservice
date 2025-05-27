@@ -3,17 +3,14 @@ from .run_inference import run_inference
 from .parse import parse_data_for_model, extract_csv_from_tar_gz_bytes
 from fastapi import FastAPI, HTTPException
 import numpy as np
-import logging
-# local
+import io
+# Import the logging setup
+from .logging_setup import setup_logging
 from .local_types import InferenceInfo
 from .storage import fetch_file, list_dirs
-import io
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-
-
+# Setup logging
+logger = setup_logging()
 logger.info("Application starting...")
 
 app = FastAPI()
@@ -25,14 +22,6 @@ app_config = load_config()
 async def test():
     return {"msg": "Its working!"}
 
-# returns the names of directories in the models directory - may be confusing when picking a model
-# @app.get("/model_names")
-# def get_model_names():
-#     model_names = list_dirs(
-#         app_config["local"]["models_dir"]
-#     )
-
-#     return model_names
 
 @app.post("/test_cluster/")
 async def test_cluster():
@@ -60,21 +49,41 @@ async def evaluate(info: InferenceInfo):
     csv_data = None
 
     try:
+        # ============================
+        # RETRIEVE THE FILE FROM STORAGE
+        # ============================
         # get the file from storage API
+        #
+        storage_api_url: str = ""
 
-        tar_gz_data = await fetch_file(info.file_uid, app_config["api"]["url"])
+        if info.storage_api_url:
+            storage_api_url = info.storage_api_url
+        else:
+            storage_api_url = app_config["api"]["url"]
 
+        tar_gz_data = await fetch_file(info.file_uid, storage_api_url)
+
+        # ============================
+        # EXTRACT CSV DATA FROM TAR.GZ
+        # ============================
         if tar_gz_data:
             csv_data = await extract_csv_from_tar_gz_bytes(tar_gz_data)
 
         data_io = io.StringIO(csv_data)
 
+        # ============================
+        # PARSE THE CSV DATA FOR MODEL 
+        # ============================
         # Convert to numpy array
         # parse the data to be in format digestable for the model
         parsed_data: list[np.ndarray] = parse_data_for_model(
-            data_io
+            data_io,
+            app_config["parser"]["row_limit"]
         )
 
+        # ============================
+        # RUN INFERENCE ON PARSED DATA
+        # ============================
         # run the inference on parsed data with provided models
         results = run_inference(
             info.models,
@@ -82,6 +91,9 @@ async def evaluate(info: InferenceInfo):
             app_config["local"]["models_dir"]
         )
 
+        # ============================
+        # RETURN THE RESULTS
+        # ============================
         return results
 
     except Exception as e:
