@@ -40,6 +40,95 @@ async def test_cluster():
         raise HTTPException(status_code=500, detail="Error testing cluster")
 
 
+def simple_task(x):
+    import time
+    time.sleep(1) # Simulate some work
+    return x * x
+
+@app.post("/test_cluster_parallel/")
+async def test_cluster_parallel():
+    """
+    Test the Dask cluster by submitting a couple of parallel tasks.
+    """
+    # Assuming load_cluster() returns a dask.distributed.Client instance
+    # or None/raises an exception on failure.
+    # Make sure .run_inference and load_cluster are correctly importable
+    try:
+        from .run_inference import load_cluster # Or adjust path as needed
+    except ImportError:
+        # Fallback for environments where .run_inference might not be available directly
+        # This depends on your project structure.
+        # You might need to adjust sys.path or ensure the module is installed.
+        logger.error("Could not import load_cluster from .run_inference. Ensure it's in PYTHONPATH.")
+        raise HTTPException(status_code=500, detail="Internal configuration error: Dask loader not found.")
+
+    client: Client = None
+    try:
+        client = load_cluster()
+        if not client:
+            logger.warning("load_cluster() returned None. Cluster is not reachable.")
+            return {"status": "Cluster is not reachable", "details": "load_cluster() returned no client."}
+
+        logger.info(f"Connected to Dask cluster: {client}")
+
+        # Submit a couple of parallel tasks
+        futures = []
+        for i in range(1, 4): # Let's submit 3 tasks
+            future: Future = client.submit(simple_task, i)
+            futures.append(future)
+
+        logger.info(f"Submitted {len(futures)} tasks to the cluster.")
+
+        # Wait for the tasks to complete and gather results
+        # You can add a timeout to client.gather if needed
+        try:
+            results = client.gather(futures) # Timeout after 30 seconds
+            logger.info(f"Tasks completed. Results: {results}")
+            expected_results = [simple_task(i) for i in range(1, 4)] # Calculate expected results locally for comparison
+            if results == expected_results:
+                return {
+                    "status": "Cluster is reachable and tasks executed successfully 🥳",
+                    "tasks_submitted": len(futures),
+                    "results": results
+                }
+            else:
+                logger.error(f"Task results do not match expected results. Got: {results}, Expected: {expected_results}")
+                return {
+                    "status": "Cluster is reachable, but task execution had unexpected results 🤔",
+                    "tasks_submitted": len(futures),
+                    "results_obtained": results,
+                    "results_expected": expected_results
+                }
+        except TimeoutError:
+            logger.error("Timeout waiting for Dask tasks to complete.")
+            # Optionally, try to cancel futures if they are still pending
+            for f in futures:
+                if not f.done():
+                    f.cancel()
+            raise HTTPException(status_code=504, detail="Timeout waiting for Dask tasks to complete.")
+        except Exception as e_gather:
+            logger.error(f"Error gathering results from Dask tasks: {e_gather}")
+            raise HTTPException(status_code=500, detail=f"Error processing Dask tasks: {str(e_gather)}")
+
+    except HTTPException:
+        # Re-raise HTTPExceptions directly
+        raise
+    except Exception as e:
+        logger.error(f"Error testing cluster with parallel tasks: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Error testing cluster: {str(e)}")
+    finally:
+        # It's good practice to close the client if it was created specifically for this test
+        # and if load_cluster() doesn't manage its lifecycle globally.
+        # However, if load_cluster provides a shared client, you might not want to close it here.
+        # Adjust based on how load_cluster() is implemented.
+        # if client:
+        #     try:
+        #         client.close()
+        #         logger.info("Dask client closed.")
+        #     except Exception as e_close:
+        #         logger.warning(f"Error closing Dask client: {e_close}")
+        pass # Decided against auto-closing for now, as load_clu
+
 @app.post("/evaluate/")
 async def evaluate(info: InferenceInfo):
 
