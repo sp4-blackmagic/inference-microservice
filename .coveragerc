@@ -1,0 +1,4 @@
+[run]
+omit = 
+    src/logging_setup.py
+    */logging_setup.py
