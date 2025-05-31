@@ -135,7 +135,7 @@ async def evaluate(info: InferenceInfo):
     # logger.info("app_config", app_config)
     # logger.info("info", info)
 
-    csv_data = None
+    csv_file = None
 
     try:
         # ============================
@@ -150,15 +150,21 @@ async def evaluate(info: InferenceInfo):
         else:
             storage_api_url = app_config["api"]["url"]
 
-        tar_gz_data = await fetch_file(info.file_uid, storage_api_url)
+        csv_file = await fetch_file(info.file_uid, storage_api_url)
 
         # ============================
         # EXTRACT CSV DATA FROM TAR.GZ
         # ============================
-        if tar_gz_data:
-            csv_data = await extract_csv_from_tar_gz_bytes(tar_gz_data)
+        # if tar_gz_data:
+        #     csv_data = await extract_csv_from_tar_gz_bytes(tar_gz_data)
 
-        data_io = io.StringIO(csv_data)
+        if csv_file is None:
+            logger.error(f"Failed to fetch file_uid: {info.file_uid} from {storage_api_url}")
+            raise HTTPException(status_code=404, detail=f"CSV file {info.file_uid} not found or failed to fetch.")
+
+        # Decode bytes to string before passing to StringIO
+        csv_file_str = csv_file.decode('utf-8')
+        data_io = io.StringIO(csv_file_str)
 
         # ============================
         # PARSE THE CSV DATA FOR MODEL 

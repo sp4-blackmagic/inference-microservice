@@ -1,5 +1,5 @@
 [api]
-url="http://127.0.0.1:8000/download_item/"
+url="http://127.0.0.1:8000/download_csv/"
 
 [local]
 models_dir = "./local_models/runs_v8_pipeline_pca_kfold/"
