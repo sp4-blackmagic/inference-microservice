@@ -1,0 +1,12 @@
+services:
+  inference_microservice:
+    build: . # Instructs Docker Compose to build an image from the Dockerfile in the current directory
+    container_name: inference_microservice # Optional: sets a specific name for the container
+
+    ports:
+      - "6969:6969" # Maps port 8000 on the host to port 8000 in the container
+
+    environment:
+      - PYTHONUNBUFFERED=1 # Often useful for seeing logs immediately
+
+    restart: unless-stopped # Optional: configures the restart policy for the container

@@ -17,3 +17,9 @@ docker build -t inference-service .
 ```shell
 docker run -p 6969:6969 inference-service
 ```
+
+### Compose
+
+```shell
+docker compose up -d
+```
