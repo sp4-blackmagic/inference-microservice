@@ -46,36 +46,6 @@ async def fetch_file(file_uid: str, api_url: str) -> bytes | None:
         )
 
 
-# TODO: dead function - remove
-def save_temp_file(data) -> str | None:
-    """
-    Save the data temporarily to a given path with `.csv` format.
-    """
-
-    temp_data_file_path: str | None = None
-
-    with tempfile.NamedTemporaryFile(
-            suffix=".csv", delete=False) as tmp_data_file:
-        tmp_data_file.write(data)
-        temp_data_file_path = tmp_data_file.name  # Store the path
-
-    return temp_data_file_path
-
-
-# TODO: dead function - remove
-def remove_temp_file(file_path: str) -> None:
-    """
-    Pass the path to the file to remove from file system.
-    """
-
-    if file_path and os.path.exists(file_path):
-        try:
-            os.unlink(file_path)  # Remove the file
-            logger.info(f"Temporary data file {file_path} removed.")
-        except Exception as e:
-            logger.error(f"Error removing temporary file {file_path}: {e}")
-
-
 def list_dirs(directory_path):
     """
     Lists all subdirectories in a given directory.
@@ -123,20 +93,6 @@ def build_model_registry(models_dir):
     """
     Build a comprehensive registry of all available models by scanning the models directory.
     The registry organizes models by type, prediction target, and balance approach.
-    
-    Returns a nested dictionary with the following structure:
-    {
-        'model_type': {                  # e.g., 'RandomForest', 'LGBM', etc.
-            'prediction_type': {         # e.g., 'ripeness_state', 'firmness'
-                'balance_type': {        # e.g., 'balanced', 'unbalanced'
-                    'directory': 'full_directory_path',
-                    'joblib_path': 'path/to/model.joblib',
-                    'metrics_file': 'path/to/metrics.txt',
-                    'confusion_matrix': 'path/to/cm.png'
-                }
-            }
-        }
-    }
     """
     global model_registry
     model_registry = {}
@@ -206,14 +162,6 @@ def build_model_registry(models_dir):
 def get_model_info(model_type, prediction_type=None, balance_type="balanced"):
     """
     Get information about a specific model from the registry.
-    
-    Args:
-        model_type (str): Model type (e.g., 'RandomForest')
-        prediction_type (str, optional): Prediction type ('ripeness_state' or 'firmness')
-        balance_type (str, optional): Balance type ('balanced' or 'unbalanced')
-        
-    Returns:
-        dict or None: Model information or None if not found
     """
     if model_type not in model_registry:
         return None
@@ -237,14 +185,6 @@ def get_available_models():
 def get_model_path(model_type, prediction_type, balance_type="balanced"):
     """
     Get the path to a specific model joblib file.
-    
-    Args:
-        model_type (str): Model type (e.g., 'RandomForest')
-        prediction_type (str): Prediction type ('ripeness_state' or 'firmness')
-        balance_type (str, optional): Balance type ('balanced' or 'unbalanced')
-        
-    Returns:
-        str or None: Path to the model joblib file or None if not found
     """
     model_info = get_model_info(model_type, prediction_type, balance_type)
     if model_info and model_info.get('joblib_path'):
