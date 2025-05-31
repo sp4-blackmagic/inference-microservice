@@ -43,7 +43,7 @@ def load_asset(asset_path: str):
         raise
 
 
-def process_single_inference(model_name, pred_type, X_inference, model_info, models_dir):
+def process_single_inference(X_inference, model_info):
     """
     Process inference for a single model, prediction type, and data row.
     This function is designed to be run as a Dask task.
@@ -182,12 +182,8 @@ def run_inference(
                         # Submit task to Dask cluster
                         task_key = (idx, model_name, pred_type)
                         tasks[task_key] = client.submit(
-                            process_single_inference,
-                            model_name, 
-                            pred_type, 
                             X_inference, 
                             model_infos[model_name][pred_type], 
-                            models_dir
                         )
             
             # Wait for all tasks to complete and collect results
